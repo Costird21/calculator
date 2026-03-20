@@ -1,21 +1,21 @@
-/* Skip link for keyboard navigation */
+/* Skip link — visually hidden until focused via keyboard */
 .skip-link {
-  position: absolute;
-  top: -100%;
+  position: fixed;
+  top: 0;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -100%);
   padding: var(--spacing-sm) var(--spacing-md);
   background-color: var(--color-accent);
   color: #fff;
-  border-radius: var(--radius-sm);
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
   font-size: 0.875rem;
   text-decoration: none;
   z-index: 200;
-  transition: top var(--transition-fast);
+  transition: transform var(--transition-fast);
 }
 
 .skip-link:focus {
-  top: var(--spacing-sm);
+  transform: translate(-50%, 0);
 }
 
 body {

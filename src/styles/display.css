@@ -1,0 +1,36 @@
+.display {
+  padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
+  text-align: right;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.display__expression {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  min-height: 1.4em;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+.display__value {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  word-break: break-all;
+  overflow: hidden;
+  transition: font-size var(--transition-fast);
+}
+
+.display__value--small {
+  font-size: 2rem;
+}
+
+.display__value--xsmall {
+  font-size: 1.4rem;
+}

@@ -1,4 +1,10 @@
 import './styles/reset.css';
 import './styles/variables.css';
+import './styles/layout.css';
+import './styles/display.css';
+import './styles/buttons.css';
+import './styles/history.css';
+import { initApp } from './app.js';
 
-console.log('Calculator app initialized');
+const root = document.getElementById('app');
+initApp(root);

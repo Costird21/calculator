@@ -20,16 +20,16 @@ A professional all-in-one calculator with **Standard**, **Scientific**, and **Pr
 
 ## Keyboard Shortcuts
 
-| Key | Action |
-|---|---|
-| `0`-`9` | Input digit |
-| `A`-`F` | Hex digits (programmer mode) |
-| `.` | Decimal point |
-| `+` `-` `*` `/` | Operators |
-| `Enter` or `=` | Calculate |
-| `Backspace` | Delete last digit |
-| `Escape` or `Delete` | Clear all |
-| `%` | Percent |
+| Key                  | Action                       |
+| -------------------- | ---------------------------- |
+| `0`-`9`              | Input digit                  |
+| `A`-`F`              | Hex digits (programmer mode) |
+| `.`                  | Decimal point                |
+| `+` `-` `*` `/`      | Operators                    |
+| `Enter` or `=`       | Calculate                    |
+| `Backspace`          | Delete last digit            |
+| `Escape` or `Delete` | Clear all                    |
+| `%`                  | Percent                      |
 
 ## Tech Stack
 

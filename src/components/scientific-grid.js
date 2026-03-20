@@ -46,12 +46,14 @@ export function createScientificGrid(container, store) {
   const secondBtn = createBtn('2nd', 'btn btn--action btn--small', () => {
     store.dispatch({ type: 'TOGGLE_SECOND' });
   });
+  secondBtn.setAttribute('aria-label', 'Toggle secondary functions');
   funcRow.appendChild(secondBtn);
 
   // Deg/Rad button
   const degBtn = createBtn('DEG', 'btn btn--action btn--small', () => {
     store.dispatch({ type: 'TOGGLE_ANGLE_MODE' });
   });
+  degBtn.setAttribute('aria-label', 'Toggle degree/radian mode');
   funcRow.appendChild(degBtn);
 
   // Function buttons

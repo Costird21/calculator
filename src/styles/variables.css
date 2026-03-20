@@ -35,6 +35,15 @@
 
   /* Transitions */
   --transition-fast: 150ms ease;
+  --transition-med: 250ms ease;
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-med: 0ms;
+  }
 }
 
 body {

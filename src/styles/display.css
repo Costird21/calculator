@@ -24,7 +24,9 @@
   color: var(--color-text-primary);
   word-break: break-all;
   overflow: hidden;
-  transition: font-size var(--transition-fast);
+  transition:
+    font-size var(--transition-fast),
+    color var(--transition-fast);
 }
 
 .display__value--small {
@@ -33,4 +35,30 @@
 
 .display__value--xsmall {
   font-size: 1.4rem;
+}
+
+.display__value--error {
+  color: var(--color-btn-operator);
+}
+
+/* Fade-in on mode switch */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.display--fade-in {
+  animation: fadeIn var(--transition-med) ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .display--fade-in {
+    animation: none;
+  }
 }

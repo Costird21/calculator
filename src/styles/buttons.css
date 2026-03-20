@@ -19,7 +19,8 @@
   color: var(--color-text-primary);
   transition:
     background-color var(--transition-fast),
-    transform var(--transition-fast);
+    transform var(--transition-fast),
+    filter var(--transition-fast);
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -31,6 +32,7 @@
 .btn:active,
 .btn--active {
   transform: scale(0.95);
+  filter: brightness(1.2);
 }
 
 .btn:focus-visible {
@@ -93,6 +95,7 @@
 .mode-btn--active {
   color: var(--color-accent);
   background-color: rgba(15, 188, 249, 0.1);
+  font-weight: 600;
 }
 
 /* Control buttons (theme toggle, history) */

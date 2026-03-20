@@ -73,6 +73,8 @@ function sciDigit(state, digit) {
     state.expression === '' || state.expression === '0'
       ? digit
       : state.expression + digit;
+  // Prevent unbounded expression growth
+  if (expr.length > 100) return state;
   return {
     ...state,
     expression: expr,

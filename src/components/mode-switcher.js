@@ -7,6 +7,7 @@ const MODES = [
 export function createModeSwitcher(container, onSwitch) {
   const nav = document.createElement('nav');
   nav.className = 'calculator__modes';
+  nav.setAttribute('role', 'tablist');
   nav.setAttribute('aria-label', 'Calculator modes');
 
   let currentMode = 'standard';
@@ -16,7 +17,8 @@ export function createModeSwitcher(container, onSwitch) {
     const btn = document.createElement('button');
     btn.className = `mode-btn ${mode.id === currentMode ? 'mode-btn--active' : ''}`;
     btn.textContent = mode.label;
-    btn.setAttribute('aria-pressed', mode.id === currentMode);
+    btn.setAttribute('role', 'tab');
+    btn.setAttribute('aria-selected', mode.id === currentMode);
     btn.disabled = !mode.enabled;
 
     btn.addEventListener('click', () => {
@@ -35,7 +37,7 @@ export function createModeSwitcher(container, onSwitch) {
     currentMode = modeId;
     Object.entries(buttons).forEach(([id, btn]) => {
       btn.classList.toggle('mode-btn--active', id === modeId);
-      btn.setAttribute('aria-pressed', id === modeId);
+      btn.setAttribute('aria-selected', id === modeId);
     });
   }
 

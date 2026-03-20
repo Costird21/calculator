@@ -16,19 +16,44 @@ export function createDisplay(container) {
   const valueEl = el.querySelector('.display__value');
 
   function update(state) {
-    expressionEl.textContent = state.expression || '';
-    valueEl.textContent = formatDisplayValue(state.currentInput);
-    updateFontSize(valueEl, state.currentInput);
+    if (state.mode === 'scientific') {
+      updateScientific(state, expressionEl, valueEl);
+    } else {
+      updateStandard(state, expressionEl, valueEl);
+    }
   }
 
   return { update };
 }
 
+function updateStandard(state, expressionEl, valueEl) {
+  expressionEl.textContent = state.expression || '';
+  valueEl.textContent = formatDisplayValue(state.currentInput);
+  updateFontSize(valueEl, state.currentInput);
+}
+
+function updateScientific(state, expressionEl, valueEl) {
+  // In scientific mode, show the expression being built
+  const expr = state.expression || '';
+  expressionEl.textContent = prettifyExpression(expr);
+
+  // Show the current result or input
+  valueEl.textContent = formatDisplayValue(state.currentInput);
+  updateFontSize(valueEl, state.currentInput);
+}
+
+function prettifyExpression(expr) {
+  return expr
+    .replace(/\*/g, '\u00d7')
+    .replace(/\//g, '\u00f7')
+    .replace(/pi/g, '\u03c0')
+    .replace(/sqrt/g, '\u221a')
+    .replace(/cbrt/g, '\u00b3\u221a');
+}
+
 function formatDisplayValue(value) {
   if (value === 'Error') return value;
 
-  // If the user is still typing (has a trailing decimal or is mid-input)
-  // show the raw value
   if (value.endsWith('.') || value === '-') {
     return addThousandsSeparators(value);
   }
@@ -36,7 +61,6 @@ function formatDisplayValue(value) {
   const num = parseFloat(value);
   if (!isFinite(num)) return value;
 
-  // For integers and simple decimals, add thousands separators
   return addThousandsSeparators(value);
 }
 

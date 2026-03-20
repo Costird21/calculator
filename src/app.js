@@ -1,6 +1,7 @@
 import { createStore, getInitialState } from './state/calculator-state.js';
 import { createDisplay } from './components/display.js';
 import { createButtonGrid } from './components/button-grid.js';
+import { createScientificGrid } from './components/scientific-grid.js';
 import { createModeSwitcher } from './components/mode-switcher.js';
 import { createHistoryPanel } from './components/history-panel.js';
 import { setupKeyboard } from './utils/keyboard.js';
@@ -19,7 +20,10 @@ export function initApp(root) {
   const header = document.createElement('div');
   header.className = 'calculator__header';
 
-  createModeSwitcher(header);
+  createModeSwitcher(header, (mode) => {
+    store.dispatch({ type: 'SWITCH_MODE', payload: mode });
+    calculator.className = `calculator calculator--${mode}`;
+  });
 
   const controls = document.createElement('div');
   controls.className = 'calculator__controls';
@@ -41,7 +45,10 @@ export function initApp(root) {
   // Display
   const display = createDisplay(calculator);
 
-  // Button grid
+  // Scientific function buttons (above the main grid)
+  const sciGrid = createScientificGrid(calculator, store);
+
+  // Standard button grid
   const { buttonMap } = createButtonGrid(calculator, store);
 
   root.appendChild(calculator);
@@ -56,11 +63,12 @@ export function initApp(root) {
   // Keyboard support
   setupKeyboard(store, buttonMap);
 
-  // Subscribe display to state changes
+  // Subscribe to state changes
   let pendingResult = null;
 
   store.subscribe((state) => {
     display.update(state);
+    sciGrid.update(state);
 
     // Add to history when a calculation completes
     if (state.lastResult && state.lastResult !== pendingResult) {

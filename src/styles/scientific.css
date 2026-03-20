@@ -1,0 +1,44 @@
+.scientific-grid-wrapper {
+  display: none;
+}
+
+.calculator--scientific .scientific-grid-wrapper {
+  display: block;
+}
+
+.button-grid--scientific-top {
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.button-grid--scientific-mid {
+  grid-template-columns: repeat(8, 1fr);
+}
+
+.btn--small {
+  font-size: 0.85rem;
+  min-height: 48px;
+  padding: var(--spacing-sm);
+}
+
+.btn--active-toggle {
+  background-color: var(--color-accent);
+  color: #fff;
+}
+
+.btn--spacer {
+  pointer-events: none;
+}
+
+/* Expression display for scientific mode */
+.calculator--scientific .display__expression {
+  min-height: 2.4em;
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+
+/* Wider calculator in scientific mode */
+@media (min-width: 481px) {
+  .calculator--scientific {
+    max-width: 480px;
+  }
+}

@@ -1,10 +1,10 @@
 const MODES = [
-  { id: 'standard', label: 'Standard' },
-  { id: 'scientific', label: 'Scientific' },
-  { id: 'programmer', label: 'Programmer' },
+  { id: 'standard', label: 'Standard', enabled: true },
+  { id: 'scientific', label: 'Scientific', enabled: true },
+  { id: 'programmer', label: 'Programmer', enabled: false },
 ];
 
-export function createModeSwitcher(container) {
+export function createModeSwitcher(container, onSwitch) {
   const nav = document.createElement('nav');
   nav.className = 'calculator__modes';
   nav.setAttribute('aria-label', 'Calculator modes');
@@ -17,11 +17,12 @@ export function createModeSwitcher(container) {
     btn.className = `mode-btn ${mode.id === currentMode ? 'mode-btn--active' : ''}`;
     btn.textContent = mode.label;
     btn.setAttribute('aria-pressed', mode.id === currentMode);
-    btn.disabled = mode.id !== 'standard'; // Only standard is implemented
+    btn.disabled = !mode.enabled;
 
     btn.addEventListener('click', () => {
-      if (mode.id !== 'standard') return;
+      if (!mode.enabled || mode.id === currentMode) return;
       setActive(mode.id);
+      if (onSwitch) onSwitch(mode.id);
     });
 
     buttons[mode.id] = btn;

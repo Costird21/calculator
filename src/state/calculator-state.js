@@ -1,3 +1,8 @@
+import {
+  scientificReducer,
+  getScientificInitialState,
+} from '../engines/scientific.js';
+
 export function createStore(initialState) {
   let state = { ...initialState };
   const listeners = new Set();
@@ -8,7 +13,13 @@ export function createStore(initialState) {
     },
 
     dispatch(action) {
-      state = reducer(state, action);
+      if (action.type === 'SWITCH_MODE') {
+        state = handleSwitchMode(state, action.payload);
+      } else if (state.mode === 'scientific') {
+        state = scientificReducer(state, action);
+      } else {
+        state = standardReducer(state, action);
+      }
       listeners.forEach((fn) => fn(state));
     },
 
@@ -19,7 +30,20 @@ export function createStore(initialState) {
   };
 }
 
-function reducer(state, action) {
+function handleSwitchMode(state, mode) {
+  if (mode === 'scientific') {
+    return {
+      ...getScientificInitialState(),
+      mode: 'scientific',
+    };
+  }
+  return {
+    ...getStandardInitialState(),
+    mode: 'standard',
+  };
+}
+
+function standardReducer(state, action) {
   switch (action.type) {
     case 'INPUT_DIGIT':
       return handleDigit(state, action.payload);
@@ -30,7 +54,7 @@ function reducer(state, action) {
     case 'CALCULATE':
       return handleCalculate(state);
     case 'CLEAR':
-      return handleClear();
+      return handleClear(state);
     case 'CLEAR_ENTRY':
       return handleClearEntry(state);
     case 'BACKSPACE':
@@ -50,8 +74,9 @@ function reducer(state, action) {
   }
 }
 
-function getInitialState() {
+function getStandardInitialState() {
   return {
+    mode: 'standard',
     currentInput: '0',
     previousInput: '',
     operator: null,
@@ -59,6 +84,10 @@ function getInitialState() {
     waitingForOperand: false,
     lastResult: null,
   };
+}
+
+export function getInitialState() {
+  return getStandardInitialState();
 }
 
 function handleDigit(state, digit) {
@@ -149,8 +178,8 @@ function handleCalculate(state) {
   };
 }
 
-function handleClear() {
-  return { ...getInitialState() };
+function handleClear(state) {
+  return { ...getStandardInitialState(), mode: state.mode };
 }
 
 function handleClearEntry(state) {
@@ -221,4 +250,4 @@ function getOperatorSymbol(op) {
   return symbols[op] || op;
 }
 
-export { getInitialState, calculate, formatResult, getOperatorSymbol };
+export { calculate, formatResult, getOperatorSymbol };

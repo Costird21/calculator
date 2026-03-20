@@ -15,7 +15,18 @@ export function createDisplay(container) {
   const expressionEl = el.querySelector('.display__expression');
   const valueEl = el.querySelector('.display__value');
 
+  let lastMode = null;
+
   function update(state) {
+    // Trigger fade-in on mode switch
+    if (lastMode !== null && state.mode !== lastMode) {
+      el.classList.remove('display--fade-in');
+      // Force reflow to restart animation
+      void el.offsetWidth;
+      el.classList.add('display--fade-in');
+    }
+    lastMode = state.mode;
+
     if (state.mode === 'scientific') {
       updateScientific(state, expressionEl, valueEl);
     } else if (state.mode === 'programmer') {
@@ -23,6 +34,12 @@ export function createDisplay(container) {
     } else {
       updateStandard(state, expressionEl, valueEl);
     }
+
+    // Error styling
+    valueEl.classList.toggle(
+      'display__value--error',
+      state.currentInput === 'Error'
+    );
   }
 
   return { update };

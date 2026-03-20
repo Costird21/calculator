@@ -48,6 +48,7 @@ export function scientificReducer(state, action) {
 
 export function getScientificInitialState() {
   return {
+    mode: 'scientific',
     expression: '',
     currentInput: '0',
     degreeMode: true,

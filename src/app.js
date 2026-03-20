@@ -2,6 +2,7 @@ import { createStore, getInitialState } from './state/calculator-state.js';
 import { createDisplay } from './components/display.js';
 import { createButtonGrid } from './components/button-grid.js';
 import { createScientificGrid } from './components/scientific-grid.js';
+import { createProgrammerGrid } from './components/programmer-grid.js';
 import { createModeSwitcher } from './components/mode-switcher.js';
 import { createHistoryPanel } from './components/history-panel.js';
 import { setupKeyboard } from './utils/keyboard.js';
@@ -48,6 +49,9 @@ export function initApp(root) {
   // Scientific function buttons (above the main grid)
   const sciGrid = createScientificGrid(calculator, store);
 
+  // Programmer controls (above the main grid)
+  const progGrid = createProgrammerGrid(calculator, store);
+
   // Standard button grid
   const { buttonMap } = createButtonGrid(calculator, store);
 
@@ -69,6 +73,7 @@ export function initApp(root) {
   store.subscribe((state) => {
     display.update(state);
     sciGrid.update(state);
+    progGrid.update(state);
 
     // Add to history when a calculation completes
     if (state.lastResult && state.lastResult !== pendingResult) {

@@ -18,6 +18,8 @@ export function createDisplay(container) {
   function update(state) {
     if (state.mode === 'scientific') {
       updateScientific(state, expressionEl, valueEl);
+    } else if (state.mode === 'programmer') {
+      updateProgrammer(state, expressionEl, valueEl);
     } else {
       updateStandard(state, expressionEl, valueEl);
     }
@@ -49,6 +51,13 @@ function prettifyExpression(expr) {
     .replace(/pi/g, '\u03c0')
     .replace(/sqrt/g, '\u221a')
     .replace(/cbrt/g, '\u00b3\u221a');
+}
+
+function updateProgrammer(state, expressionEl, valueEl) {
+  expressionEl.textContent = state.expression || '';
+  // In programmer mode, show the value in the current base
+  valueEl.textContent = state.inputInBase || '0';
+  updateFontSize(valueEl, state.inputInBase || '0');
 }
 
 function formatDisplayValue(value) {

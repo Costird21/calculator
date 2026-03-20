@@ -1,0 +1,106 @@
+.programmer-grid-wrapper {
+  display: none;
+}
+
+.calculator--programmer .programmer-grid-wrapper {
+  display: block;
+}
+
+/* Multi-base display */
+.multi-base-display {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.base-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+}
+
+.base-row:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.base-row--active {
+  background-color: rgba(15, 188, 249, 0.08);
+}
+
+.base-row--active .base-row__label {
+  color: var(--color-accent);
+}
+
+.base-row__label {
+  width: 32px;
+  font-weight: 600;
+  font-size: 0.7rem;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.base-row__value {
+  flex: 1;
+  text-align: right;
+  color: var(--color-text-primary);
+  word-break: break-all;
+  font-size: 0.75rem;
+}
+
+.base-row--active .base-row__value {
+  color: var(--color-accent);
+}
+
+/* Bit width selector */
+.bit-width-row {
+  display: flex;
+  gap: 1px;
+  padding: 1px;
+  background-color: var(--color-border);
+}
+
+.bit-width-btn {
+  flex: 1;
+  font-size: 0.7rem !important;
+  min-height: 36px !important;
+  text-transform: uppercase;
+}
+
+.bit-width-btn--active {
+  background-color: var(--color-accent) !important;
+  color: #fff !important;
+}
+
+/* Bitwise operations row */
+.button-grid--bitwise {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+/* Hex digits row */
+.button-grid--hex {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.btn--disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* Wider calculator in programmer mode */
+@media (min-width: 481px) {
+  .calculator--programmer {
+    max-width: 480px;
+  }
+}
+
+/* Also disable standard number buttons based on base */
+.calculator--programmer .btn[data-digit] {
+  transition:
+    opacity var(--transition-fast),
+    background-color var(--transition-fast);
+}

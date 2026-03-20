@@ -1,7 +1,7 @@
 const MODES = [
   { id: 'standard', label: 'Standard', enabled: true },
   { id: 'scientific', label: 'Scientific', enabled: true },
-  { id: 'programmer', label: 'Programmer', enabled: false },
+  { id: 'programmer', label: 'Programmer', enabled: true },
 ];
 
 export function createModeSwitcher(container, onSwitch) {

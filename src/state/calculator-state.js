@@ -2,6 +2,10 @@ import {
   scientificReducer,
   getScientificInitialState,
 } from '../engines/scientific.js';
+import {
+  programmerReducer,
+  getProgrammerInitialState,
+} from '../engines/programmer.js';
 
 export function createStore(initialState) {
   let state = { ...initialState };
@@ -17,6 +21,8 @@ export function createStore(initialState) {
         state = handleSwitchMode(state, action.payload);
       } else if (state.mode === 'scientific') {
         state = scientificReducer(state, action);
+      } else if (state.mode === 'programmer') {
+        state = programmerReducer(state, action);
       } else {
         state = standardReducer(state, action);
       }
@@ -30,17 +36,14 @@ export function createStore(initialState) {
   };
 }
 
-function handleSwitchMode(state, mode) {
+function handleSwitchMode(_state, mode) {
   if (mode === 'scientific') {
-    return {
-      ...getScientificInitialState(),
-      mode: 'scientific',
-    };
+    return getScientificInitialState();
   }
-  return {
-    ...getStandardInitialState(),
-    mode: 'standard',
-  };
+  if (mode === 'programmer') {
+    return getProgrammerInitialState();
+  }
+  return getStandardInitialState();
 }
 
 function standardReducer(state, action) {
